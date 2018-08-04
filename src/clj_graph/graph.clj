@@ -16,9 +16,17 @@
   (assoc g k {:value v :nodes (set ns)}))
 
 (defn remove-vertex
-  "Remove vertex `k` from the graph `g`."
+  "Remove vertex `k` from the graph `g`.
+  Remove `k` from :nodes of linked vertexes as well."
   [g k]
-  (dissoc g k))
+  (->> (dissoc g k)
+       (reduce-kv
+        (fn [m k1 v]
+          (if (some #(= % k) (:nodes v))
+            (->> (remove #{k} (:nodes v))
+                 (assoc-in m [k1 :nodes]))
+            (assoc m k1 v)))
+        {})))
 
 (defn add-edge
   "Add an edge from the vertex `k1` to the vertex `k2` in the graph `g`."
