@@ -10,19 +10,33 @@
 (defn- pprint-edges
   "Return a string representation of the edges in the graph `g`."
   [g]
-  (let [es (->> (reduce-kv
-                 (fn [acc k v]
-                   (assoc acc k (reduce
-                                 (fn [a el]
-                                   (conj a (str k " ➙ " el)))
-                                 []
-                                 (:nodes v))))
-                 {}
-                 g)
-                vals
-                (remove empty?)
-                flatten)]
-    (apply str (count es) " edges:\n" (->> es (interpose "\n")))))
+  (let [es-in (->> (reduce-kv
+                    (fn [acc k v]
+                      (assoc acc k (reduce
+                                    (fn [a el]
+                                      (conj a (str k " ➙ " el)))
+                                    []
+                                    (:in v))))
+                    {}
+                    g)
+                   vals
+                   (remove empty?)
+                   flatten)
+        es-out (->> (reduce-kv
+                     (fn [acc k v]
+                       (assoc acc k (reduce
+                                     (fn [a el]
+                                       (conj a (str k " ➙ " el)))
+                                     []
+                                     (:out v))))
+                     {}
+                     g)
+                    vals
+                    (remove empty?)
+                    flatten)]
+    (str
+     (apply str (count es-in) " edges in:\n" (->> es-in (interpose "\n")))
+     (apply str (count es-out) " edges out:\n" (->> es-out (interpose "\n"))))))
 
 (defn pprint-graph
   "Return a string representation of the graph `g`."

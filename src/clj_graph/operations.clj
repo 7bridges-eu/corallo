@@ -6,7 +6,7 @@
   If present return nil, otherwise returned the vertex key."
   [g used-vertexes]
   (some (fn [[k v]]
-          (when (empty? (remove used-vertexes (:nodes v)))
+          (when (empty? (remove used-vertexes (:out v)))
             k))
         g))
 
@@ -30,12 +30,12 @@
   [g k]
   (try
     (circular-dependency? g)
-    (let [ns (graph/neighbors g k)]
+    (let [ns (graph/out-edges g k)]
       (if (empty? ns)
         [k]
         (reduce
          (fn [acc el]
-           (if (empty? (graph/neighbors g el))
+           (if (empty? (graph/out-edges g el))
              (conj acc el)
              (into acc (traverse g el))))
          [k]
