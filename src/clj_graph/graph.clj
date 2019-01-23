@@ -37,6 +37,7 @@
          (assoc-in g [k1 :out]))))
 
 (defn remove-edge
+  "Remove edge (in and out) from `k1` to `k2`."
   [g k1 k2]
   (-> g
       (remove-edge-in k2 k1)
@@ -76,6 +77,7 @@
           outs))
 
 (defn remove-vertex
+  "Remove vertex `k` from graph `g`."
   [g k]
   (let [k-ins (get-in g [k :in])
         k-outs (get-in g [k :out])]
