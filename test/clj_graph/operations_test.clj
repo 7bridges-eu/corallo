@@ -15,11 +15,11 @@
 (deftest find-next-vertex-test
   (testing "Testing find-next-vertex function"
     (let [f #'clj-graph.operations/find-next-vertex]
-      (is (= (f g-test #{:a}) :d)))))
+      (is (= (f g-test #{:a}) :a)))))
 
 (deftest circular-dependency?-test
   (testing "Testing circular-dependency? function"
-    (is (= (op/circular-dependency? g-test) [:d :c :b :a]))
+    (is (= (op/circular-dependency? g-test) [:a :b :c :d]))
     (is (thrown? Exception (op/circular-dependency? g1-test)))))
 
 (deftest traverse-test
@@ -28,7 +28,7 @@
 
 (deftest topo-sort-test
   (testing "Testing topo-sort function"
-    (is (= (op/topo-sort g-test) [:d :c :b :a]))
+    (is (= (op/topo-sort g-test) [:a :b :c :d]))
     (is (= (op/topo-sort g1-test)
            {:message "Circular dependency",
             :causes

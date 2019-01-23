@@ -6,7 +6,7 @@
   If present return nil, otherwise returned the vertex key."
   [g used-vertexes]
   (some (fn [[k v]]
-          (when (empty? (remove used-vertexes (:out v)))
+          (when (empty? (remove used-vertexes (:in v)))
             k))
         g))
 
