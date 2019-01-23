@@ -2,7 +2,7 @@
   (:require [clojure.set :as s]))
 
 (defn add-vertex
-  "Add a vertex `k` with value `v` and linked nodes `ns` to the graph `g`."
+  "Add a vertex `k` with value `v`. Do not add it if already present."
   [g k v]
   (if (get g k)
     g
