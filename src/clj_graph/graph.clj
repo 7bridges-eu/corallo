@@ -8,7 +8,13 @@
 (defn neighbors
   "Get all the nodes with an edge to `k` from the graph `g`."
   [g k]
-  (get-in g [k :nodes]))
+  (concat (get-in g [k :nodes])
+          (reduce-kv (fn [m k' v]
+                       (if-let [v' (some #{k} (:nodes v))]
+                         (conj m k')
+                         m))
+                     #{}
+                     g)))
 
 (defn add-vertex
   "Add a vertex `k` with value `v` and linked nodes `ns` to the graph `g`."
