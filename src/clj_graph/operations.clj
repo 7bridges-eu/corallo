@@ -6,30 +6,33 @@
   If present return nil, otherwise returned the vertex key."
   [g used-vertexes]
   (some (fn [[k v]]
-          (when (empty? (remove used-vertexes (:in v)))
+          (when (empty? (remove used-vertexes (:out v)))
             k))
         g))
 
-(defn circular-dependency?
-  "Determine if there is a circular dependency in the graph `g`."
+(defn topo-sort
+  "Sort `g` topologically.
+  If a circular dependency is found, return nil."
   [g]
   (loop [g g
          acc []]
     (if (empty? g)
-      acc
+      (reverse acc)
       (if-let [n (find-next-vertex g (set acc))]
         (recur (dissoc g n) (conj acc n))
-        (throw
-         (ex-info "Circular dependency"
-                  {:message "Circular dependency"
-                   :causes g}))))))
+        nil))))
+
+(defn circular-dependency?
+  "Check if there is a circular dependency in `g`."
+  [g]
+  (nil? (topo-sort g)))
 
 (defn traverse
-  "Traverse the graph `g` starting from vertex `k`.
-  If a circular dependency is found, a map with error data is returned."
+  "Traverse the graph `g` starting from vertex `k` if topo-sorted.
+  Otherwise, return `g`."
   [g k]
-  (try
-    (circular-dependency? g)
+  (if (circular-dependency? g)
+    g
     (let [ns (graph/out-edges g k)]
       (if (empty? ns)
         [k]
@@ -39,16 +42,7 @@
              (conj acc el)
              (into acc (traverse g el))))
          [k]
-         ns)))
-    (catch Exception e (ex-data e))))
-
-(defn topo-sort
-  "Topologically sort the graph `g`.
-  If a circular dependency is found, a map with error data is returned."
-  [g]
-  (try
-    (circular-dependency? g)
-    (catch Exception e (ex-data e))))
+         ns)))))
 
 (defn complete-graph?
   "Determine if graph `g` is a complete graph.
