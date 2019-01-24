@@ -22,10 +22,10 @@
     (let [f #'clj-graph.operations/find-next-vertex]
       (is (= (f g-test #{:a}) :d)))))
 
-(deftest circular-dependency?-test
-  (testing "Testing circular-dependency? predicate"
-    (is (false? (op/circular-dependency? g-test)))
-    (is (true? (op/circular-dependency? g1-test)))))
+(deftest acyclic-graph?-test
+  (testing "Testing acyclic-graph? predicate"
+    (is (true? (op/acyclic-graph? g-test)))
+    (is (false? (op/acyclic-graph? g1-test)))))
 
 (deftest traverse-test
   (testing "Testing traverse function"

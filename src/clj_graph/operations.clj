@@ -22,17 +22,16 @@
         (recur (dissoc g n) (conj acc n))
         nil))))
 
-(defn circular-dependency?
-  "Check if there is a circular dependency in `g`."
+(defn acyclic-graph?
+  "Check if there is not a circular dependency in `g`."
   [g]
-  (nil? (topo-sort g)))
+  (not (nil? (topo-sort g))))
 
 (defn traverse
   "Traverse the graph `g` starting from vertex `k` if topo-sorted.
   Otherwise, return `g`."
   [g k]
-  (if (circular-dependency? g)
-    g
+  (if (acyclic-graph? g)
     (let [ns (graph/out-edges g k)]
       (if (empty? ns)
         [k]
@@ -42,7 +41,8 @@
              (conj acc el)
              (into acc (traverse g el))))
          [k]
-         ns)))))
+         ns)))
+    g))
 
 (defn complete-graph?
   "Determine if graph `g` is a complete graph.
