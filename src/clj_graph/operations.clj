@@ -24,6 +24,24 @@
                   {:message "Circular dependency"
                    :causes g}))))))
 
+(defn traverse
+  "Traverse the graph `g` starting from vertex `k`.
+  If a circular dependency is found, a map with error data is returned."
+  [g k]
+  (try
+    (circular-dependency? g)
+    (let [ns (graph/out-edges g k)]
+      (if (empty? ns)
+        [k]
+        (reduce
+         (fn [acc el]
+           (if (empty? (graph/out-edges g el))
+             (conj acc el)
+             (into acc (traverse g el))))
+         [k]
+         ns)))
+    (catch Exception e (ex-data e))))
+
 (defn topo-sort
   "Topologically sort the graph `g`.
   If a circular dependency is found, a map with error data is returned."
@@ -31,22 +49,6 @@
   (try
     (circular-dependency? g)
     (catch Exception e (ex-data e))))
-
-(defn traverse
-  "Traverse the graph `g` starting from vertex `k`.
-  If a circular dependency is found, a map with error data is returned."
-  [g k]
-  (let [g (topo-sort g)
-        ns (graph/out-edges g k)]
-    (if (empty? ns)
-      [k]
-      (reduce
-       (fn [acc el]
-         (if (empty? (graph/out-edges g el))
-           (conj acc el)
-           (into acc (traverse g el))))
-       [k]
-       ns))))
 
 (defn complete-graph?
   "Determine if graph `g` is a complete graph.
