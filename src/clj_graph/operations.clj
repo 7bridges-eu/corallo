@@ -49,3 +49,16 @@
   (try
     (circular-dependency? g)
     (catch Exception e (ex-data e))))
+
+(defn complete-graph?
+  "Determine if graph `g` is a complete graph.
+  See: https://en.wikipedia.org/wiki/Complete_graph"
+  [g]
+  (let [g' (topo-sort g)
+        ins (mapcat :in (vals g))]
+    (reduce (fn [_ el]
+              (if (some #{el} ins)
+                true
+                (reduced false)))
+            nil
+            (butlast g'))))
