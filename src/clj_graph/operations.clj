@@ -60,5 +60,4 @@
               (if (some #{el} ins)
                 true
                 (reduced false)))
-            nil
             (butlast g'))))
