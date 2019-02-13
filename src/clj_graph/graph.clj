@@ -4,7 +4,7 @@
 (defn add-vertex
   "Add a vertex `k` with value `v`. Do not add it if already present."
   [g k v]
-  (if (get g k)
+  (if (get-in g [:vertexes k])
     g
     (assoc-in g [:vertexes k] {:value v :in #{} :out #{}})))
 
