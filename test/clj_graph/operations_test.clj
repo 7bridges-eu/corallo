@@ -2,31 +2,34 @@
   (:require [clj-graph.operations :as op]
             [clojure.test :refer :all]))
 
-(def g-test {:a {:value "1" :in #{} :out #{{:b {}}}}
-             :b {:value "2" :in #{{:a {}}} :out #{{:c {}}}}
-             :c {:value "3" :in #{{:b {}}} :out #{{:d {}}}}
-             :d {:value "4" :in #{{:c {}}} :out #{}}})
+(def g-test {:vertexes {:a {:value "1" :in #{} :out #{:b}}
+                        :b {:value "2" :in #{:a} :out #{:c}}
+                        :c {:value "3" :in #{:b} :out #{:d}}
+                        :d {:value "4" :in #{:c} :out #{}}}
+             :edges {[:a :b] {}
+                     [:b :c] {}
+                     [:c :d] {}}})
 
-(def g1-test {:a {:value "1" :in #{{:d {}}} :out #{{:b {}}}}
-              :b {:value "2" :in #{{:a {}}} :out #{{:c {}}}}
-              :c {:value "3" :in #{{:b {}}} :out #{{:d {}}}}
-              :d {:value "4" :in #{{:c {}}} :out #{{:a {}}}}})
+(def g1-test {:vertexes {:a {:value "1" :in #{:d} :out #{:b}}
+                         :b {:value "2" :in #{:a} :out #{:c}}
+                         :c {:value "3" :in #{:b} :out #{:d}}
+                         :d {:value "4" :in #{:c} :out #{:a}}}
+              :edges {[:a :b] {}
+                      [:b :c] {}
+                      [:c :d] {}
+                      [:d :a] {}}})
 
-(def g2-test {:a {:value nil, :in #{}, :out #{{:b {}}}},
-              :b {:value nil, :in #{{:a {}}}, :out #{}},
-              :c {:value nil, :in #{}, :out #{{:d {}}}},
-              :d {:value nil, :in #{{:c {}}}, :out #{}}})
-
-(deftest find-unused-vertexes-test
-  (testing "Testing find-unused-vertexes function"
-    (let [f #'clj-graph.operations/find-unused-vertexes]
-      (is (= (f #{{:a {}} {:b {}} {:c {}}} #{:b})
-             [:c :a])))))
+(def g2-test {:vertexes {:a {:value nil, :in #{}, :out #{:b}},
+                         :b {:value nil, :in #{:a}, :out #{}},
+                         :c {:value nil, :in #{}, :out #{:d}},
+                         :d {:value nil, :in #{:c}, :out #{}}}
+              :edges {[:a :b] {}
+                      [:c :d] {}}})
 
 (deftest find-next-vertex-test
   (testing "Testing find-next-vertex function"
     (let [f #'clj-graph.operations/find-next-vertex]
-      (is (= (f g-test #{:a}) :d)))))
+      (is (= (f (:vertexes g-test) #{:a}) :d)))))
 
 (deftest acyclic-graph?-test
   (testing "Testing acyclic-graph? predicate"
