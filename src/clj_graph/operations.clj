@@ -1,5 +1,7 @@
 (ns clj-graph.operations
-  (:require [clj-graph.graph :as graph]))
+  (:require [clj-graph.graph :as graph]
+            [clojure.java.io :as io]
+            [tangle.core :as t]))
 
 (defn- find-next-vertex
   "Check if a vertex in `g` is already present in `used-vertexes`.
@@ -39,3 +41,12 @@
                 true
                 (reduced false)))
             (butlast g'))))
+
+(defn render-graph
+  "Output the render image of the graph `g`."
+  [g output-path]
+  (let [nodes (keys (:vertexes g))
+        edges (keys (:edges g))]
+    (-> (t/graph->dot nodes edges {:directed? true})
+        (t/dot->image "png")
+        (io/copy (io/file output-path)))))
