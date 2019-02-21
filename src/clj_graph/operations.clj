@@ -46,7 +46,9 @@
   "Output the render image of the graph `g`."
   [g output-path]
   (let [nodes (keys (:vertexes g))
-        edges (keys (:edges g))]
-    (-> (t/graph->dot nodes edges {:directed? true})
+        raw-edges (keys (:edges g))
+        edges (mapv (fn [[a b]] [(name a) (name b)]) raw-edges)]
+    (-> (t/graph->dot nodes edges {:directed? true
+                                   :node->id #(name %)})
         (t/dot->image "png")
         (io/copy (io/file output-path)))))
