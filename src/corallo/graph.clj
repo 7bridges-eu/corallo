@@ -9,10 +9,12 @@
     (assoc-in g [:vertexes k] {:value v :in #{} :out #{}})))
 
 (defn add-edge-in
+  "Add an IN edge between `k1` and `k2` in the graph `g`."
   [g k1 k2]
   (update-in g [:vertexes k1 :in] conj k2))
 
 (defn add-edge-out
+  "Add an OUT edge between `k1` and `k2` in the graph `g`."
   [g k1 k2]
   (update-in g [:vertexes k1 :out] conj k2))
 
@@ -29,12 +31,14 @@
        (assoc-in [:edges [from to]] properties))))
 
 (defn remove-edge-in
+  "Remove the IN edge between `k1` and `k2` in the graph `g`."
   [g k1 k2]
   (let [k1-ins (get-in g [:vertexes k1 :in])]
     (->> (s/difference k1-ins #{k2})
          (assoc-in g [:vertexes k1 :in]))))
 
 (defn remove-edge-out
+  "Remove the OUT edge between `k1` and `k2` in the graph `g`."
   [g k1 k2]
   (let [k1-ins (get-in g [:vertexes k1 :out])]
     (->> (s/difference k1-ins #{k2})
@@ -49,10 +53,12 @@
       (update :edges dissoc [k1 k2])))
 
 (defn in-edges
+  "Return the IN edges for the vertex `k` in graph `g`."
   [g k]
   (get-in g [:vertexes k :in]))
 
 (defn out-edges
+  "Return the OUT edges for the vertex `k` in graph `g`."
   [g k]
   (get-in g [:vertexes k :out]))
 
@@ -62,11 +68,12 @@
   (s/union (in-edges g k) (out-edges g k)))
 
 (defn adjacent?
-  "Check there is an edge between `k1` and `k2`."
+  "Check whether there is an edge between `k1` and `k2`."
   [g k1 k2]
   (true? (some #(= % k2) (neighbors g k1))))
 
 (defn- remove-from-ins
+  "In the graph `g`, remove `k` from `ins`."
   [g ins k]
   (reduce (fn [acc el]
             (remove-edge acc el k))
@@ -74,6 +81,7 @@
           ins))
 
 (defn- remove-from-outs
+  "In the graph `g`, remove `k` from `outs`."
   [g outs k]
   (reduce (fn [acc el]
             (remove-edge acc k el))
