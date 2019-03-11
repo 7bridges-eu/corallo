@@ -1,4 +1,6 @@
 (ns corallo.graph
+  "This namespace includes basic CRUD operations and predicates to operate on a
+  graph vertexes and edges. Note that a graph is a Clojure map."
   (:require [clojure.set :as s]))
 
 (defn add-vertex

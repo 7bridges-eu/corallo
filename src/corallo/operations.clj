@@ -1,4 +1,6 @@
 (ns corallo.operations
+  "This namespace includes graph operations such as topological sorting,
+  traverse algorithms, and rendering."
   (:require [corallo.graph :as graph]
             [clojure.java.io :as io]
             [tangle.core :as t]))
