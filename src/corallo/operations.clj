@@ -44,7 +44,7 @@
 
 (defn render-graph
   "Output the render image of the graph `g` to `output-path`.
-  Since `render-graph` generates a PNG file, `output-path` should point at PNG
+  Since `render-graph` generates a PNG file, `output-path` should point at a PNG
   file."
   [g output-path]
   (let [nodes (keys (:vertexes g))
