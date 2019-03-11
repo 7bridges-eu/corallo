@@ -44,13 +44,14 @@
 
 (defn render-graph
   "Output the render image of the graph `g` to `output-path`.
-  Since `render-graph` generates a PNG file, `output-path` should point at a PNG
-  file."
+  Since `render-graph` generates a PNG file, `output-path` must point at a PNG
+  file, otherwise `render-graph` does not create an image file."
   [g output-path]
-  (let [nodes (keys (:vertexes g))
-        raw-edges (keys (:edges g))
-        edges (mapv (fn [[a b]] [(name a) (name b)]) raw-edges)]
-    (-> (t/graph->dot nodes edges {:directed? true
-                                   :node->id #(name %)})
-        (t/dot->image "png")
-        (io/copy (io/file output-path)))))
+  (when (re-find #"(?i).png" output-path)
+    (let [nodes (keys (:vertexes g))
+          raw-edges (keys (:edges g))
+          edges (mapv (fn [[a b]] [(name a) (name b)]) raw-edges)]
+      (-> (t/graph->dot nodes edges {:directed? true
+                                     :node->id #(name %)})
+          (t/dot->image "png")
+          (io/copy (io/file output-path))))))
