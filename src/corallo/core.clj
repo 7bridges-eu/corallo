@@ -1,4 +1,4 @@
-(ns clj-graph.core)
+(ns corallo.core)
 
 (defn -main
   [args]

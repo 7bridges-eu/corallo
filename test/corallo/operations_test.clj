@@ -1,5 +1,5 @@
-(ns clj-graph.operations-test
-  (:require [clj-graph.operations :as op]
+(ns corallo.operations-test
+  (:require [corallo.operations :as op]
             [clojure.test :refer :all]))
 
 (def g-test {:vertexes {:a {:value "1" :in #{} :out #{:b}}
@@ -28,7 +28,7 @@
 
 (deftest find-next-vertex-test
   (testing "Testing find-next-vertex function"
-    (let [f #'clj-graph.operations/find-next-vertex]
+    (let [f #'corallo.operations/find-next-vertex]
       (is (= (f (:vertexes g-test) #{:a}) :d)))))
 
 (deftest acyclic-graph?-test

@@ -1,5 +1,5 @@
-(ns clj-graph.operations
-  (:require [clj-graph.graph :as graph]
+(ns corallo.operations
+  (:require [corallo.graph :as graph]
             [clojure.java.io :as io]
             [tangle.core :as t]))
 

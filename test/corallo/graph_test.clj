@@ -1,5 +1,5 @@
-(ns clj-graph.graph-test
-  (:require [clj-graph.graph :as cg]
+(ns corallo.graph-test
+  (:require [corallo.graph :as cg]
             [clojure.test :refer :all]))
 
 (def g-test {:vertexes {:a {:value "1" :in #{} :out #{:b}}

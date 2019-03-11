@@ -1,4 +1,4 @@
-(ns clj-graph.graph
+(ns corallo.graph
   (:require [clojure.set :as s]))
 
 (defn add-vertex
