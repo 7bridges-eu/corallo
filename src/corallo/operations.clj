@@ -53,7 +53,7 @@
                                    :node->id #(name %)})
         (t/dot->image "png"))))
 
-(defn render-graph-stream
+(defn graph->byte-array
   "Output the render image of the graph `g` to a byte array."
   [g]
   (with-open [out (java.io.ByteArrayOutputStream.)]
@@ -62,10 +62,10 @@
         (io/copy out))
     (.toByteArray out)))
 
-(defn render-graph-file
+(defn graph->png
   "Output the render image of the graph `g` to `output-path`.
-  Since `render-graph-file` generates a PNG file, `output-path` must point at a
-  PNG file, otherwise `render-graph-file` does not create an image file."
+  Since `graph->png` generates a PNG file, `output-path` must point at a PNG
+  file, otherwise `graph->png` does not create an image file."
   [g output-path]
   (when (re-find #"(?i).png" output-path)
     (-> g
