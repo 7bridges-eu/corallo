@@ -44,18 +44,23 @@
                 (reduced false)))
             (butlast g'))))
 
-(defn render-graph-stream
-  "Output the render image of the graph `g` to a byte array."
+(defn- render-graph
   [g]
   (let [nodes (keys (:vertexes g))
         raw-edges (keys (:edges g))
         edges (mapv (fn [[a b]] [(name a) (name b)]) raw-edges)]
-    (with-open [out (java.io.ByteArrayOutputStream.)]
-      (-> (t/graph->dot nodes edges {:directed? true
-                                     :node->id #(name %)})
-          (t/dot->image "png")
-          (io/copy out))
-      (.toByteArray out))))
+    (-> (t/graph->dot nodes edges {:directed? true
+                                   :node->id #(name %)})
+        (t/dot->image "png"))))
+
+(defn render-graph-stream
+  "Output the render image of the graph `g` to a byte array."
+  [g]
+  (with-open [out (java.io.ByteArrayOutputStream.)]
+    (-> g
+        render-graph
+        (io/copy out))
+    (.toByteArray out)))
 
 (defn render-graph-file
   "Output the render image of the graph `g` to `output-path`.
@@ -63,10 +68,6 @@
   PNG file, otherwise `render-graph-file` does not create an image file."
   [g output-path]
   (when (re-find #"(?i).png" output-path)
-    (let [nodes (keys (:vertexes g))
-          raw-edges (keys (:edges g))
-          edges (mapv (fn [[a b]] [(name a) (name b)]) raw-edges)]
-      (-> (t/graph->dot nodes edges {:directed? true
-                                     :node->id #(name %)})
-          (t/dot->image "png")
-          (io/copy (io/file output-path))))))
+    (-> g
+        render-graph
+        (io/copy (io/file output-path)))))
