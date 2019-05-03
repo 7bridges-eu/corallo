@@ -156,6 +156,15 @@ And this is the resulting image for the graph `g`:
     <img src="https://github.com/7bridges-eu/corallo/blob/master/graph.png"/>
 </p>
 
+Note that you can also get the byte array representing the graph image:
+
+``` clojure
+user> (operations/graph->byte-array g)
+[-119, 80, 78, 71, 13, 10, 26, 10, 0, 0, 0, 13, 73, 72, 68, 82, 0, 0, 0, 86, 0,
+ 0, 1, 105, 8, 2, 0, 0, 0, -119, 111, 72, 108, 0, 0, 0, 6, 98, 75, 71, 68, 0,
+ -1, 0, -1, 0, -1, -96, -67, -89, ...]
+```
+
 ## License
 Copyright © 2019 7bridges s.r.l.
 
