@@ -45,6 +45,7 @@
             (butlast g'))))
 
 (defn- render-graph
+  "Render the graph `g` to a PNG file."
   [g]
   (let [nodes (keys (:vertexes g))
         raw-edges (keys (:edges g))
