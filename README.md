@@ -149,7 +149,7 @@ user> (operations/graph->png g "/tmp/graph.png")
 nil
 ```
 
-And this is the image for the graph `g`:
+And this is the resulting image for the graph `g`:
 
 <p align="center">
     <img src="https://github.com/7bridges-eu/corallo/blob/master/graph.png"/>
