@@ -121,6 +121,7 @@ true
 The graph can be topologically sorted:
 
 ``` clojure
+user> (require '[corallo.operations :as operations])
 user> (operations/topo-sort g)
 (:a :b :c :d)
 ```
