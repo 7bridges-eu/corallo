@@ -153,7 +153,7 @@ nil
 And this is the resulting image for the graph `g`:
 
 <p align="center">
-    <img src="https://github.com/7bridges-eu/corallo/blob/master/graph.png"/>
+    <img src="https://github.com/7bridges-eu/corallo/blob/master/resources/graph.png"/>
 </p>
 
 Note that you can also get the byte array representing the graph image:
