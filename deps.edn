@@ -4,10 +4,8 @@
                                                 :sha "d9023b24c3d589ba6ebc66c5a25c0826ed28ead5"}}
                   :main-opts ["-m"]}
            :test {:extra-paths ["test"]
-                  :extra-deps
-                  {com.cognitect/test-runner
-                   {:git/url "https://github.com/cognitect-labs/test-runner.git"
-                    :sha "5fb4fc46ad0bf2e0ce45eba5b9117a2e89166479"}}
+                  :extra-deps {com.cognitect/test-runner {:git/url "https://github.com/cognitect-labs/test-runner.git"
+                                                          :sha "5fb4fc46ad0bf2e0ce45eba5b9117a2e89166479"}}
                   :main-opts ["-m" "cognitect.test-runner"]}}
 
  :deps {macroz/tangle {:mvn/version "0.2.0"}
