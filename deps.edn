@@ -1,4 +1,9 @@
-{:aliases {:test {:extra-paths ["test"]
+{:aliases {:deploy {:extra-deps {deps-deploy {:mvn/version "RELEASE"}}
+                    :main-opts ["-m" "deps-deploy.deps-deploy" "deploy" "corallo.jar"]}
+           :pack {:extra-deps {pack/pack.alpha {:git/url "https://github.com/juxt/pack.alpha.git"
+                                                :sha "d9023b24c3d589ba6ebc66c5a25c0826ed28ead5"}}
+                  :main-opts ["-m"]}
+           :test {:extra-paths ["test"]
                   :extra-deps
                   {com.cognitect/test-runner
                    {:git/url "https://github.com/cognitect-labs/test-runner.git"
