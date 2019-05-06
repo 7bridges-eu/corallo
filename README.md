@@ -8,6 +8,8 @@ width="500px" height="122px"/></a>
 
 A tiny graph library in Clojure.
 
+[![Clojars Project](https://img.shields.io/clojars/v/eu.7bridges/corallo.svg)](https://clojars.org/eu.7bridges/corallo)
+
 ## Usage
 
 A graph in `corallo` is a Clojure map. For instance:
