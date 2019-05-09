@@ -1,6 +1,6 @@
 <p align="center">
-    <img src="https://7bridges.eu/img/logo-inline.png" alt="7bridges clj-odbp"
-    width="500px" height="122px"/>
+    <img src="https://github.com/7bridges-eu/corallo/blob/master/resources/logo.png" alt="7bridges clj-odbp"
+        width="500px" height="122px"/>
 </p>
 
 # corallo
