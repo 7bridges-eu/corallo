@@ -9,6 +9,13 @@ A tiny graph library in Clojure.
 
 [![Clojars Project](https://img.shields.io/clojars/v/eu.7bridges/corallo.svg)](https://clojars.org/eu.7bridges/corallo)
 
+## Rationale
+
+`corallo` was born out of our need to handle and check dependencies in graphs
+which describe processes containing tasks to be executed. It was deemed helpful
+and independent enough to be extracted into and released as a library of its
+own.
+
 ## Usage
 
 A graph in `corallo` is a Clojure map. For instance:
