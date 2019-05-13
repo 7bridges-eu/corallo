@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>eu.7bridges</groupId>
   <artifactId>corallo</artifactId>
-  <version>0.1.1-SNAPSHOT</version>
+  <version>0.1.1</version>
   <name>corallo</name>
   <scm>
     <url>https://github.com/7bridges-eu/corallo</url>
