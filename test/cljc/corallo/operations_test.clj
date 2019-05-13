@@ -1,7 +1,6 @@
 (ns corallo.operations-test
   (:require [corallo.operations :as op]
-            [clojure.test :refer :all]
-            [tangle.core :as t]))
+            [clojure.test :refer :all]))
 
 (def g-test {:vertexes {:a {:value "1" :in #{} :out #{:b}}
                         :b {:value "2" :in #{:a} :out #{:c}}
@@ -46,10 +45,3 @@
   (testing "Testing complete-graph? predicate"
     (is (true? (op/complete-graph? g-test)))
     (is (false? (op/complete-graph? g2-test)))))
-
-(deftest render-graph-test
-  (testing "Testing render-graph function"
-    (let [f #'corallo.operations/render-graph]
-      (with-redefs [t/graph->dot (fn [n e opts] n)
-                    t/dot->image (fn [d ext] d)]
-        (is (= (f g-test) [:a :b :c :d]))))))
