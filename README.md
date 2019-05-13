@@ -5,7 +5,7 @@
 
 # corallo
 
-A tiny graph library in Clojure.
+A tiny graph library that can be used both from Clojure and ClojureScript.
 
 [![Clojars Project](https://img.shields.io/clojars/v/eu.7bridges/corallo.svg)](https://clojars.org/eu.7bridges/corallo)
 
@@ -150,11 +150,12 @@ user> (-> (graph/remove-edge g :b :c)
 false
 ```
 
-Finally, the graph can be rendered as a PNG file thanks to
-[tangle](https://github.com/Macroz/tangle):
+Finally, in a Clojure namespace the graph can be rendered as a PNG file thanks
+to [tangle](https://github.com/Macroz/tangle):
 
 ``` clojure
-user> (operations/graph->png g "/tmp/graph.png")
+user> (require '[corallo.render :as render])
+user> (render/graph->png g "/tmp/graph.png")
 nil
 ```
 
@@ -167,7 +168,7 @@ And this is the resulting image for the graph `g`:
 Note that you can also get the byte array representing the graph image:
 
 ``` clojure
-user> (operations/graph->byte-array g)
+user> (render/graph->byte-array g)
 [-119, 80, 78, 71, 13, 10, 26, 10, 0, 0, 0, 13, 73, 72, 68, 82, 0, 0, 0, 86, 0,
  0, 1, 105, 8, 2, 0, 0, 0, -119, 111, 72, 108, 0, 0, 0, 6, 98, 75, 71, 68, 0,
  -1, 0, -1, 0, -1, -96, -67, -89, ...]
