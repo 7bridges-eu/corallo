@@ -9,6 +9,6 @@
                   :main-opts ["-m" "cognitect.test-runner"]}}
 
  :deps {macroz/tangle {:mvn/version "0.2.0"}
-        org.clojure/clojure {:mvn/version "1.10.0"}}
+        org.clojure/clojure {:mvn/version "1.11.2"}}
 
  :paths ["src/clj" "src/cljc"]}
